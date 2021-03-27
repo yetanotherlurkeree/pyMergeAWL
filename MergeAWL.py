@@ -50,7 +50,7 @@ class MergeAWL:
         self.SourceFiles=[]
         self.SortedSources=[]
         self.sLogger = aLogger
-        self.strStandardFolder = "\\MergeAWL\\"
+        self.strStandardFolder = "/MergeAWL/"
         self.strStandardFile = "Merge.AWL"
         
     # Read files in the folder 
@@ -69,7 +69,7 @@ class MergeAWL:
                     else:
                         self.sLogger.logEvent(2,"Skipped: "+file)
         except:
-            self.sLogger.logEvent(1,"Can not read directory: "+FilesDirectory+"\n Does this directory exist?")
+            self.sLogger.logEvent(1,"Can not read directory: "+FilesDirectory+";Does this directory exist?")
             
 
     # Read the compile numbers
@@ -77,7 +77,12 @@ class MergeAWL:
         CNFCombo =[0,"File"] #format
         SourceFile = open(file,"r")
         SourceFileLines = SourceFile.readlines()
-        CNIndex = SourceFileLines[1].find("CN:")
+        # check the number of lines 
+        if len(SourceFileLines)>1:
+            CNIndex = SourceFileLines[1].find("CN:")
+        else:
+            self.sLogger.logEvent(1,"Empty file")
+            return -1
         CompileNumber = SourceFileLines[1][CNIndex+3:].strip()
         SourceFile.close()
         if not CompileNumber.isdigit():
@@ -113,8 +118,8 @@ class SplitAWL:
     def __init__(self, aPath, aLogger):
         self.sLogger = aLogger
         self.sPath = aPath
-        self.strStandardFolder = "\\SplitAWL\\"
-        self.strStandardFile = "\\Split.awl"
+        self.strStandardFolder = "/SplitAWL/"
+        self.strStandardFile = "/Split.awl"
         self.arrStandardBlocks = ["ORGANIZATION_BLOCK", "FUNCTION_BLOCK", "FUNCTION ", "TYPE","DATA_BLOCK"]
         self.FileLines = []
 
@@ -224,6 +229,8 @@ def main():
     cLog.logEvent(2,"Done! Until next time!")
     cLog.stopLogging()
     
-main()
+if __name__ =="__main__":
+    main()
+
     
 
