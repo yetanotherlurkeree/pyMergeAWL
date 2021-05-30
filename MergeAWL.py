@@ -50,7 +50,7 @@ class MergeAWL:
         self.SourceFiles=[]
         self.SortedSources=[]
         self.sLogger = aLogger
-        self.strStandardFolder = "/MergeAWL/"
+        self.strStandardFolder = "//MergeAWL//"
         self.strStandardFile = "Merge.AWL"
         
     # Read files in the folder 
@@ -118,15 +118,15 @@ class SplitAWL:
     def __init__(self, aPath, aLogger):
         self.sLogger = aLogger
         self.sPath = aPath
-        self.strStandardFolder = "/SplitAWL/"
-        self.strStandardFile = "/Split.awl"
+        self.strStandardFolder = "//SplitAWL//"
+        self.strStandardFile = "//Split.awl"
         self.arrStandardBlocks = ["ORGANIZATION_BLOCK", "FUNCTION_BLOCK", "FUNCTION ", "TYPE","DATA_BLOCK"]
         self.FileLines = []
 
     def readSplitAWL(self):
         strFilePath = self.sPath+self.strStandardFile
         try:
-            self.sFile = open(strFilePath,"r")
+            self.sFile = open(strFilePath,"r", encoding='utf-8-sig')
             self.FileLines = self.sFile.readlines()
         except:
             self.sLogger.logEvent(1,"Can not read file: "+strFilePath)
