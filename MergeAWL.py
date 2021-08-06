@@ -7,7 +7,7 @@ import datetime
 from operator import itemgetter
 
 # global variabel for the version
-gintVersion = "0.01"
+gintVersion = "0.02"
 
 # Logs the events to a file
 class Logger:
